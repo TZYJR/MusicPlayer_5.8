@@ -20,11 +20,12 @@ public class AudioTimeTest : MonoBehaviour {
 	public Text audioName;
 	public Slider audioTimeSlider;
 
-	bool lue=false;
+	bool lue=true;
 
 	private void Start()
 	{
 		audioSource = GetComponent<AudioSource>();
+        //audioTimeSlider.onValueChanged.AddListener(delegate { SetAudioTimeValueChange(); });
 		audioSource.clip = audioClip;
 		audioName.text = audioClip.name;
 		clipHour = (int)audioSource.clip.length / 3600;
@@ -40,27 +41,27 @@ public class AudioTimeTest : MonoBehaviour {
 
 	private void Update()
 	{
-		if (Input.GetMouseButtonDown(0)&& EventSystem.current.IsPointerOverGameObject())
-		{
-			lue = true;
-			audioSource.Stop();
-		}
-		else if (Input.GetMouseButton(0) && lue)
-		{
-			SetAudioTimeValueChange();
-		}
-		else
-		{
-			ShowAudioTime();
-		}
-		if (Input.GetMouseButtonUp(0))
-		{
+        if (Input.GetMouseButtonDown(0))
+        {
+            lue = true;
+            audioSource.Stop();
+        }
+        else if (Input.GetMouseButton(0) && lue)
+        {
+            SetAudioTimeValueChange();
+        }
+        else
+        {
+            ShowAudioTime();
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
 
-			audioSource.Play();
-			lue = false;
-		}
-
-	}
+            audioSource.Play();
+            lue = false;
+        }
+        //ShowAudioTime();
+    }
 
 	void ShowAudioTime()
 	{
